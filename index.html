@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arga Bona Immanuel Nainggolan | Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.4s ease, color 0.4s ease; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .profile-img { object-position: center 25%; }
+        
+        /* Animasi Transisi & Scroll Modern */
+        .page-section {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+        .page-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efek Hover & Klik Interaktif */
+        .hover-card {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .btn-click {
+            transition: transform 0.15s ease, background-color 0.2s ease;
+        }
+        .btn-click:active {
+            transform: scale(0.95);
+        }
+
+        /* Animasi Putar Ikon Tema */
+        #themeIcon {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .rotate-icon {
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-neutral-950 text-neutral-800 dark:text-neutral-100 antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800 leading-relaxed overflow-x-hidden">
+
+    <!-- Tombol Kontrol Atas (Dark/Light & Tombol Translate Model Ikon) -->
+    <div class="max-w-5xl mx-auto px-6 pt-6 flex justify-end items-center gap-3 text-xs font-medium">
+        <!-- Tombol Translate Ikon -->
+        <button onclick="toggleLanguage()" class="btn-click flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-3 py-1.5 rounded-xl text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-700 shadow-xs cursor-pointer" title="Ganti Bahasa / Change Language">
+            <i class="fas fa-language text-sm"></i>
+            <span id="langLabel" class="font-bold tracking-wider">ID</span>
+        </button>
+
+        <!-- Tombol Toggle Dark/Light Mode -->
+        <button onclick="toggleDarkMode()" class="btn-click w-9 h-9 rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:scale-105 shadow-xs cursor-pointer" title="Toggle Dark/Light Mode">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+        </button>
+    </div>
+
+    <!-- Container Utama Layout -->
+    <div class="max-w-5xl mx-auto px-6 py-8 md:py-12">
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
+            
+            <!-- SIDEBAR KIRI (Profil & Navigasi) -->
+            <aside class="md:col-span-4 md:sticky md:top-16 flex flex-col items-center md:items-start text-center md:text-left space-y-8">
+                <!-- Foto & Nama -->
+                <div class="space-y-4 flex flex-col items-center w-full">
+                    <img src="./assets/profil.jpeg" alt="Arga Bona Immanuel Nainggolan" class="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover profile-img border-2 border-neutral-200 dark:border-neutral-800 shadow-md mx-auto block hover:scale-105 transition duration-300" onerror="this.src='./assets/profil.jpg'">
+                    <div class="w-full">
+                        <h2 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Arga Bona Immanuel Nainggolan</h2>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5" data-i18n="tagline">Interested in Web Development, IoT, Cloud Infrastructure, and Data</p>
+                    </div>
+                </div>
+
+                <!-- Navigasi Menu Desktop -->
+                <nav class="hidden md:flex flex-col space-y-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-400 border-l-2 border-neutral-200 dark:border-neutral-800 pl-4 w-full text-left">
+                    <button onclick="switchPage('home')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 font-semibold text-neutral-900 dark:text-white cursor-pointer" data-target="home" data-i18n="nav_home"><i class="fas fa-home w-5 mr-1.5"></i> Home</button>
+                    <button onclick="switchPage('education')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 cursor-pointer" data-target="education" data-i18n="nav_education"><i class="fas fa-graduation-cap w-5 mr-1.5"></i> Education</button>
+                    <button onclick="switchPage('experience')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 cursor-pointer" data-target="experience" data-i18n="nav_experience"><i class="fas fa-briefcase w-5 mr-1.5"></i> Experience</button>
+                    <button onclick="switchPage('skills')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 cursor-pointer" data-target="skills" data-i18n="nav_skills"><i class="fas fa-tools w-5 mr-1.5"></i> Skills</button>
+                    <button onclick="switchPage('projects')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 cursor-pointer" data-target="projects" data-i18n="nav_projects"><i class="fas fa-code w-5 mr-1.5"></i> Projects</button>
+                    <button onclick="switchPage('certificates')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 cursor-pointer" data-target="certificates" data-i18n="nav_certificates"><i class="fas fa-certificate w-5 mr-1.5"></i> Certificates</button>
+                    <button onclick="switchPage('contact')" class="nav-btn text-left hover:text-neutral-900 dark:hover:text-white py-1 transition-all hover:translate-x-1 cursor-pointer" data-target="contact" data-i18n="nav_contact"><i class="fas fa-paper-plane w-5 mr-1.5"></i> Contact</button>
+                </nav>
+
+                <!-- Navigasi Mobile -->
+                <div class="flex md:hidden flex-wrap justify-center gap-2 text-xs font-medium text-neutral-600 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-800 pb-4 w-full">
+                    <button onclick="switchPage('home')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_home"><i class="fas fa-home mr-1"></i> Home</button>
+                    <button onclick="switchPage('education')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_education"><i class="fas fa-graduation-cap mr-1"></i> Edu</button>
+                    <button onclick="switchPage('experience')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_experience"><i class="fas fa-briefcase mr-1"></i> Exp</button>
+                    <button onclick="switchPage('skills')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_skills"><i class="fas fa-tools mr-1"></i> Skills</button>
+                    <button onclick="switchPage('projects')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_projects"><i class="fas fa-code mr-1"></i> Projects</button>
+                    <button onclick="switchPage('certificates')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_certificates"><i class="fas fa-certificate mr-1"></i> Certs</button>
+                    <button onclick="switchPage('contact')" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 rounded-lg btn-click" data-i18n="nav_contact"><i class="fas fa-paper-plane mr-1"></i> Contact</button>
+                </div>
+            </aside>
+
+            <!-- KONTEN UTAMA KANAN -->
+            <main class="md:col-span-8 space-y-16 text-left">
+                
+                <!-- ==================== HOME SECTION ==================== -->
+                <div id="page-home" class="page-section space-y-16 active">
+                    <!-- ABOUT -->
+                    <section class="space-y-6 pt-2">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-user-circle text-neutral-400"></i> <span data-i18n="about_title">About</span></h1>
+                        </div>
+                        <div class="space-y-4 text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed">
+                            <p data-i18n="about_p1">I am a fresh graduate in Computer Technology from Institut Teknologi Del with a strong foundation in designing and developing integrated computer systems, including programming, computer networks, operating systems, and hardware-software integration.</p>
+                            <p data-i18n="about_p2">I have a broad interest in technology, particularly Web Development with a focus on Web Development, Internet of Things (IoT), Cloud Computing, and Data. I am passionate about interactive web application development, IoT and Cloud-based system integration, and data processing to support innovative and effective technological solutions.</p>
+                            <p data-i18n="about_p3">I view every new experience and challenge as an opportunity to expand my understanding and develop my skills. I am open to learning things beyond my current knowledge, understanding various approaches, and adapting to ever-evolving environments and technologies.</p>
+                            <div class="pt-4 flex flex-wrap gap-3">
+                                <button onclick="openModal('./assets/CV.pdf', 'Curriculum Vitae - Arga Bona Immanuel Nainggolan')" class="btn-click inline-flex items-center gap-2 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 px-4 py-2.5 rounded-xl hover:opacity-90 shadow-sm cursor-pointer">
+                                    <i class="fas fa-eye"></i> <span data-i18n="btn_view_resume">View Resume</span>
+                                </button>
+                                <a href="./assets/CV.pdf" download="CV_Arga_Bona_Immanuel_Nainggolan.pdf" class="btn-click inline-flex items-center gap-2 text-xs font-medium bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-800 px-4 py-2.5 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-800 transition">
+                                    <i class="fas fa-download"></i> <span data-i18n="btn_download_cv">Download CV</span>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- EDUCATION -->
+                    <section class="space-y-6">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h2 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-graduation-cap text-neutral-400"></i> <span data-i18n="nav_education">Education</span></h2>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1.5">
+                                <img src="./assets/it del.jpeg" alt="IT Del" class="w-full h-full object-contain" onerror="this.src='./assets/it del.jpg'">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm">Institut Teknologi Del</h3>
+                                    <span class="text-xs text-neutral-400 font-mono">Aug 2023 - Sep 2026</span>
+                                </div>
+                                <p class="text-xs text-neutral-600 dark:text-neutral-400 font-medium mt-0.5" data-i18n="edu_degree">Diploma in Computer Technology (GPA: 3.03 / 4.00)</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- EXPERIENCE -->
+                    <section class="space-y-6">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h2 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-briefcase text-neutral-400"></i> <span data-i18n="nav_experience">Experience</span></h2>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1.5">
+                                    <img src="./assets/infranexia.jpeg" alt="Infranexia" class="w-full h-full object-contain" onerror="this.src='./assets/infranexia.jpg'">
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                        <h3 class="font-semibold text-neutral-900 dark:text-white text-sm">Infranexia (Telkom Group)</h3>
+                                        <span class="text-xs text-neutral-400 font-mono">Feb 2026 - Jun 2026</span>
+                                    </div>
+                                    <p class="text-xs text-neutral-600 dark:text-neutral-400 font-medium mt-0.5" data-i18n="exp_role1">Data Management Intern</p>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 leading-relaxed" data-i18n="exp_desc1">Supported data management activities at Telkom/Infranexia, including data validation, updating, and maintenance to ensure accuracy and consistency. Assisted in managing asset inventory records and organizing data using Microsoft Excel to support reporting and operational needs.</p>
+                                </div>
+                            </div>
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1.5">
+                                    <img src="./assets/himpunan.jpeg" alt="Himpunan" class="w-full h-full object-contain" onerror="this.src='./assets/himpunan.jpg'">
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                        <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="exp_org2">Computer Technology Student Association</h3>
+                                        <span class="text-xs text-neutral-400 font-mono">Sep 2024 - Jun 2025</span>
+                                    </div>
+                                    <p class="text-xs text-neutral-600 dark:text-neutral-400 font-medium mt-0.5" data-i18n="exp_role2">Head of The Publication Division</p>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 leading-relaxed" data-i18n="exp_desc2">Managing all publication, documentation, and digital branding activities for the student association. Coordinate the creative team in producing informative and engaging content to enhance the organization's image, and ensure all activity information is effectively communicated.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SKILLS -->
+                    <section class="space-y-6">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h2 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-tools text-neutral-400"></i> <span data-i18n="nav_skills">Skills & Tech Stack</span></h2>
+                        </div>
+                        <div class="space-y-4 text-xs">
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                                <span class="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-code text-blue-500"></i> Web & Programming</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-python text-sky-500"></i> Python</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server text-emerald-500"></i> Flask / Web Framework</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-php"></i> PHP</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-laravel text-red-500"></i> Laravel</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-java"></i> Java</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-code"></i> C / C++</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-html5 text-orange-500"></i> HTML5 & CSS3</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-js text-yellow-400"></i> JavaScript</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-wind text-cyan-400"></i> Tailwind CSS</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-icons text-blue-400"></i> FontAwesome</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-exchange-alt"></i> REST API</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-file-code"></i> JSON</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-cogs"></i> CRUD</span>
+                                </div>
+                            </div>
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                                <span class="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-database text-amber-500"></i> Database & Data Management</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-database"></i> SQL</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server"></i> MySQL</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-database text-blue-500"></i> PostgreSQL</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-leaf text-emerald-500"></i> MongoDB</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-chart-line"></i> Data Analysis</span>
+                                </div>
+                            </div>
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                                <span class="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-cloud text-sky-500"></i> Cloud, DevOps & Networks</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-docker text-blue-500"></i> Docker</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-box"></i> Containerization</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-dharmachakra text-blue-500"></i> Kubernetes / kubectl</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-sync"></i> CI/CD</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-terminal"></i> Bash</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server text-emerald-500"></i> Nginx</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-globe"></i> TCP/IP & HTTP/HTTPS</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-network-wired"></i> Network Fundamentals</span>
+                                </div>
+                            </div>
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                                <span class="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-microchip text-rose-500"></i> Hardware & IoT</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-microchip"></i> IoT & Embedded Systems</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-robot"></i> Arduino & Microcontroller</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-broadcast-tower"></i> LoRa Communication</span>
+                                </div>
+                            </div>
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                                <span class="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-laptop-code text-purple-500"></i> Software, Tools & AI</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-git-alt text-orange-500"></i> Git</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-github"></i> GitHub</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-paper-plane text-orange-500"></i> Postman</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-laptop-code text-blue-500"></i> VS Code</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-ubuntu text-orange-500"></i> Linux/Ubuntu</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server"></i> Cisco Packet Tracer</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-desktop"></i> VirtualBox</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-robot text-purple-500"></i> AI-Assisted Development</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-brain text-pink-500"></i> Prompt Engineering</span>
+                                </div>
+                            </div>
+                            <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                                <span class="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-users text-teal-500"></i> Soft Skills</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-users"></i> Team Leadership</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-handshake"></i> Teamwork & Collaboration</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-comments"></i> Communication</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-puzzle-piece"></i> Problem Solving</span>
+                                    <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-clock"></i> Time Management</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- PROJECTS -->
+                    <section class="space-y-6">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h2 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-code text-neutral-400"></i> <span data-i18n="nav_projects">Featured Projects</span></h2>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title1">Sistem Pemantauan Tinggi Permukaan Air Danau Toba Berbasis IoT Menggunakan Teknologi LoRa</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">Aug 2025 - Aug 2026</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc1">Merancang dan mengimplementasikan sistem pemantauan tinggi permukaan air Danau Toba secara real-time berbasis IoT menggunakan komunikasi LoRa.</p>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title2">Penerapan Python-Based Automation dalam Pemetaan Desain Spasial KML Menjadi Bill of Quantities (BOQ) Jaringan FTTH Telkom</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">Feb 2026 - Jun 2026</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc2">Mengembangkan web application (Python, Streamlit) untuk otomatisasi pembuatan Bill of Quantities jaringan FTTH dari file KML Google Earth Pro.</p>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title3">Smart Door Lock And Access</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">Oct 2025 - Dec 2025</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc3">Merancang sistem kunci pintu otomatis terintegrasi IoT dengan autentikasi RFID dan sidik jari untuk respon cepat dan aman.</p>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title4">Sistem Pemberi Pakan Ayam Berbasis Internet of Things (IoT)</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">Jan 2025 - Jun 2025</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc4">Merancang sistem pemberian pakan dan air otomatis untuk unggas yang dapat dikendalikan langsung melalui aplikasi.</p>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title5">Lampu Otomatis Menyala Ketika Ada Pergerakan</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">Oct 2024 - Dec 2024</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc5">Merancang sistem pencahayaan otomatis berbasis sensor gerak (PIR Sensor) yang menyala saat mendeteksi pergerakan.</p>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title6">Genshin Impact Character Database Website using REST API</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">May 2024 - Jun 2024</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc6">Mengimplementasikan REST API ke dalam web untuk menampilkan keseluruhan data karakter game secara dinamis.</p>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 sm:col-span-2 block cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title7">Layanan Kesehatan SIBALTAR (Siantar, Balige, Dan Tarutung)</h3>
+                                    <i class="fab fa-github text-neutral-400 text-sm"></i>
+                                </div>
+                                <span class="text-[10px] text-neutral-400 font-mono block">Jan 2024 - Jun 2024</span>
+                                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc7">Merancang sistem informasi layanan kesehatan berbasis web untuk daerah Siantar, Balige, dan Tarutung secara terstruktur.</p>
+                            </a>
+                        </div>
+                    </section>
+
+                    <!-- CERTIFICATES -->
+                    <section class="space-y-6">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h2 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-certificate text-neutral-400"></i> <span data-i18n="nav_certificates">Certificates & Licenses</span></h2>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <button onclick="openModal('https://drive.google.com/file/d/1IQOUBZKKWP_uEI5z5mlYZTBhxvi3Cs2l/view', 'Computer Vision - GreatNusa')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/great nusa.jpeg" alt="GreatNusa" class="w-full h-full object-contain" onerror="this.src='./assets/great nusa.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">Computer Vision</span>
+                                        <span class="text-[10px] text-neutral-400">GreatNusa</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                            <button onclick="openModal('https://drive.google.com/file/d/1MXnEVs3gbCEz8wJSDbuZ483doOJB45SI/view', 'Data Analysis Fundamental - MySkill')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/myskill.jpeg" alt="MySkill" class="w-full h-full object-contain" onerror="this.src='./assets/myskill.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">Data Analysis Fundamental</span>
+                                        <span class="text-[10px] text-neutral-400">MySkill</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                            <button onclick="openModal('https://drive.google.com/file/d/1OokDvakGdIfq3kLXHG4-nl_LPMQn9Xub/view', 'Industrial Cybersecurity - ID-Networkers')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/id networkers.jpeg" alt="ID-Networkers" class="w-full h-full object-contain" onerror="this.src='./assets/id networkers.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">Industrial Cybersecurity</span>
+                                        <span class="text-[10px] text-neutral-400">ID-Networkers (IDN.ID)</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                            <button onclick="openModal('https://drive.google.com/file/d/1TFrgV3PFWvo1FbTXQsqC_JAdjc723Hw7/view', 'HCIA-Datacom - Huawei')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/huawei.jpeg" alt="Huawei" class="w-full h-full object-contain" onerror="this.src='./assets/huawei.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">HCIA-Datacom V1.0 Course</span>
+                                        <span class="text-[10px] text-neutral-400">Huawei</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                            <button onclick="openModal('https://drive.google.com/file/d/1sme9JnCMCx0bUQLxrjFXvdO-2N-UmtSB/view', 'HCIA-Storage - Huawei')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/huawei.jpeg" alt="Huawei" class="w-full h-full object-contain" onerror="this.src='./assets/huawei.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">HCIA-Storage V5.0 Course</span>
+                                        <span class="text-[10px] text-neutral-400">Huawei</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                            <button onclick="openModal('https://drive.google.com/file/d/1zdTUkBPXSCeulAuoD165m2XdHJ4wfKz3/view', 'HTML Essentials - Cisco')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/cisco.jpeg" alt="Cisco" class="w-full h-full object-contain" onerror="this.src='./assets/cisco.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">HTML Essentials</span>
+                                        <span class="text-[10px] text-neutral-400">Cisco Networking Academy</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                            <button onclick="openModal('https://drive.google.com/file/d/1x3rYY50L3W9nLxRMu466LyLE2dEZSVbD/view', 'Telkom Intern - Infranexia')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer sm:col-span-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                        <img src="./assets/infranexia.jpeg" alt="Infranexia" class="w-full h-full object-contain" onerror="this.src='./assets/infranexia.jpg'">
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-neutral-900 dark:text-white block">PT Telkom Infrastruktur Indonesia Intern</span>
+                                        <span class="text-[10px] text-neutral-400">Infranexia (Data Management Intern)</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-eye text-neutral-400"></i>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- CONTACT -->
+                    <section class="space-y-6">
+                        <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
+                            <h2 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-paper-plane text-neutral-400"></i> <span data-i18n="nav_contact">Contact</span></h2>
+                        </div>
+                        <div class="hover-card p-6 rounded-3xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm mb-1" data-i18n="contact_title">Let's Connect & Collaborate!</h3>
+                                <p class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="contact_subtitle">Interested in opportunities or discussing tech projects? Reach out below.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <a href="mailto:argabonanainggolan@gmail.com" title="Email" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                    <i class="fas fa-envelope text-xs"></i>
+                                </a>
+                                <a href="https://wa.me/6283861570693" target="_blank" title="WhatsApp" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                    <i class="fab fa-whatsapp text-xs"></i>
+                                </a>
+                                <a href="https://t.me/Argangln" target="_blank" title="Telegram" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                    <i class="fab fa-telegram text-xs"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/argabonaimmanuelnainggolan" target="_blank" title="LinkedIn" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                    <i class="fab fa-linkedin text-xs"></i>
+                                </a>
+                                <a href="https://github.com/ArgaNainggolan-commits" target="_blank" title="GitHub" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                    <i class="fab fa-github text-xs"></i>
+                                </a>
+                                <a href="https://www.instagram.com/arga.ngln" target="_blank" title="Instagram" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                    <i class="fab fa-instagram text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- COPYRIGHT SECTION -->
+                    <footer class="pt-8 pb-4 border-t border-neutral-100 dark:border-neutral-900 text-center text-xs text-neutral-400 font-mono">
+                        &copy; 2026 Arga Bona Immanuel Nainggolan. All rights reserved.
+                    </footer>
+                </div>
+
+                <!-- ==================== HALAMAN TERPISAH (SINGLE PAGE VIEW) ==================== -->
+                <!-- EDUCATION PAGE -->
+                <div id="page-education" class="page-section space-y-6 hidden">
+                    <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3 flex justify-between items-center">
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-graduation-cap text-neutral-400"></i> <span data-i18n="nav_education">Education</span></h1>
+                        <button onclick="switchPage('home')" class="text-xs text-neutral-500 hover:underline cursor-pointer">&larr; Back to Home</button>
+                    </div>
+                    <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1.5">
+                            <img src="./assets/it del.jpeg" alt="IT Del" class="w-full h-full object-contain" onerror="this.src='./assets/it del.jpg'">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm">Institut Teknologi Del</h3>
+                                <span class="text-xs text-neutral-400 font-mono">Aug 2023 - Sep 2026</span>
+                            </div>
+                            <p class="text-xs text-neutral-600 dark:text-neutral-400 font-medium mt-0.5" data-i18n="edu_degree">Diploma in Computer Technology (GPA: 3.03 / 4.00)</p>
+                            <p class="text-xs text-neutral-500 mt-2" data-i18n="edu_modules">Modules: Computer Architecture, IoT Applications, Network Security, Software Engineering, Cloud Computing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERIENCE PAGE -->
+                <div id="page-experience" class="page-section space-y-6 hidden">
+                    <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3 flex justify-between items-center">
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-briefcase text-neutral-400"></i> <span data-i18n="nav_experience">Experience</span></h1>
+                        <button onclick="switchPage('home')" class="text-xs text-neutral-500 hover:underline cursor-pointer">&larr; Back to Home</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1.5">
+                                <img src="./assets/infranexia.jpeg" alt="Infranexia" class="w-full h-full object-contain" onerror="this.src='./assets/infranexia.jpg'">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm">Infranexia (Telkom Group)</h3>
+                                    <span class="text-xs text-neutral-400 font-mono">Feb 2026 - Jun 2026</span>
+                                </div>
+                                <p class="text-xs text-neutral-600 dark:text-neutral-400 font-medium mt-0.5" data-i18n="exp_role1">Data Management Intern</p>
+                                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 leading-relaxed" data-i18n="exp_desc1">Supported data management activities at Telkom/Infranexia, including data validation, updating, and maintenance to ensure accuracy and consistency. Assisted in managing asset inventory records and organizing data using Microsoft Excel to support reporting and operational needs.</p>
+                            </div>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1.5">
+                                <img src="./assets/himpunan.jpeg" alt="Himpunan" class="w-full h-full object-contain" onerror="this.src='./assets/himpunan.jpg'">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="exp_org2">Computer Technology Student Association</h3>
+                                    <span class="text-xs text-neutral-400 font-mono">Sep 2024 - Jun 2025</span>
+                                </div>
+                                <p class="text-xs text-neutral-600 dark:text-neutral-400 font-medium mt-0.5" data-i18n="exp_role2">Head of The Publication Division</p>
+                                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 leading-relaxed" data-i18n="exp_desc2">Managing all publication, documentation, and digital branding activities for the student association. Coordinate the creative team in producing informative and engaging content to enhance the organization's image, and ensure all activity information is effectively communicated.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKILLS PAGE -->
+                <div id="page-skills" class="page-section space-y-6 hidden">
+                    <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3 flex justify-between items-center">
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-tools text-neutral-400"></i> <span data-i18n="nav_skills">Skills & Tech Stack</span></h1>
+                        <button onclick="switchPage('home')" class="text-xs text-neutral-500 hover:underline cursor-pointer">&larr; Back to Home</button>
+                    </div>
+                    <div class="space-y-4 text-xs">
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                            <span class="font-semibold text-neutral-900 dark:text-white uppercase flex items-center gap-1.5"><i class="fas fa-code text-blue-500"></i> Web & Programming</span>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-python text-sky-500"></i> Python</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server text-emerald-500"></i> Flask / Web Framework</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-php"></i> PHP</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-laravel text-red-500"></i> Laravel</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-java"></i> Java</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-code"></i> C / C++</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-html5 text-orange-500"></i> HTML5 & CSS3</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-js text-yellow-400"></i> JavaScript</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-wind text-cyan-400"></i> Tailwind CSS</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-icons text-blue-400"></i> FontAwesome</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-exchange-alt"></i> REST API</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-file-code"></i> JSON</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-cogs"></i> CRUD</span>
+                            </div>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                            <span class="font-semibold text-neutral-900 dark:text-white uppercase flex items-center gap-1.5"><i class="fas fa-database text-amber-500"></i> Database & Data Management</span>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-database"></i> SQL</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server"></i> MySQL</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-database text-blue-500"></i> PostgreSQL</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-leaf text-emerald-500"></i> MongoDB</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-chart-line"></i> Data Analysis</span>
+                            </div>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                            <span class="font-semibold text-neutral-900 dark:text-white uppercase flex items-center gap-1.5"><i class="fas fa-cloud text-sky-500"></i> Cloud, DevOps & Networks</span>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-docker text-blue-500"></i> Docker</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-box"></i> Containerization</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-dharmachakra text-blue-500"></i> Kubernetes / kubectl</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-sync"></i> CI/CD</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-terminal"></i> Bash</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server text-emerald-500"></i> Nginx</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-globe"></i> TCP/IP & HTTP/HTTPS</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-network-wired"></i> Network Fundamentals</span>
+                            </div>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                            <span class="font-semibold text-neutral-900 dark:text-white uppercase flex items-center gap-1.5"><i class="fas fa-microchip text-rose-500"></i> Hardware & IoT</span>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-microchip"></i> IoT & Embedded Systems</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-robot"></i> Arduino & Microcontroller</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-broadcast-tower"></i> LoRa Communication</span>
+                            </div>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                            <span class="font-semibold text-neutral-900 dark:text-white uppercase flex items-center gap-1.5"><i class="fas fa-laptop-code text-purple-500"></i> Software, Tools & AI</span>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-git-alt text-orange-500"></i> Git</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-github"></i> GitHub</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-paper-plane text-orange-500"></i> Postman</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-laptop-code text-blue-500"></i> VS Code</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fab fa-ubuntu text-orange-500"></i> Linux/Ubuntu</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-server"></i> Cisco Packet Tracer</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-desktop"></i> VirtualBox</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-robot text-purple-500"></i> AI-Assisted Development</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-brain text-pink-500"></i> Prompt Engineering</span>
+                            </div>
+                        </div>
+                        <div class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2">
+                            <span class="font-semibold text-neutral-900 dark:text-white uppercase flex items-center gap-1.5"><i class="fas fa-users text-teal-500"></i> Soft Skills</span>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-users"></i> Team Leadership</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-handshake"></i> Teamwork & Collaboration</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-comments"></i> Communication</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-puzzle-piece"></i> Problem Solving</span>
+                                <span class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl flex items-center gap-1.5 hover:scale-105 transition"><i class="fas fa-clock"></i> Time Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECTS PAGE -->
+                <div id="page-projects" class="page-section space-y-6 hidden">
+                    <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3 flex justify-between items-center">
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-code text-neutral-400"></i> <span data-i18n="nav_projects">Featured Projects</span></h1>
+                        <button onclick="switchPage('home')" class="text-xs text-neutral-500 hover:underline cursor-pointer">&larr; Back to Home</button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title1">Sistem Pemantauan Tinggi Permukaan Air Danau Toba Berbasis IoT Menggunakan Teknologi LoRa</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">Aug 2025 - Aug 2026</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc1">Merancang dan mengimplementasikan sistem pemantauan tinggi permukaan air Danau Toba secara real-time berbasis IoT menggunakan komunikasi LoRa.</p>
+                        </a>
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title2">Penerapan Python-Based Automation dalam Pemetaan Desain Spasial KML Menjadi Bill of Quantities (BOQ) Jaringan FTTH Telkom</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">Feb 2026 - Jun 2026</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc2">Mengembangkan web application (Python, Streamlit) untuk otomatisasi pembuatan Bill of Quantities jaringan FTTH dari file KML Google Earth Pro.</p>
+                        </a>
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title3">Smart Door Lock And Access</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">Oct 2025 - Dec 2025</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc3">Merancang sistem kunci pintu otomatis terintegrasi IoT dengan autentikasi RFID dan sidik jari untuk respon cepat dan aman.</p>
+                        </a>
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title4">Sistem Pemberi Pakan Ayam Berbasis Internet of Things (IoT)</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">Jan 2025 - Jun 2025</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc4">Merancang sistem pemberian pakan dan air otomatis untuk unggas yang dapat dikendalikan langsung melalui aplikasi.</p>
+                        </a>
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title5">Lampu Otomatis Menyala Ketika Ada Pergerakan</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">Oct 2024 - Dec 2024</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc5">Merancang sistem pencahayaan otomatis berbasis sensor gerak (PIR Sensor) yang menyala saat mendeteksi pergerakan.</p>
+                        </a>
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title6">Genshin Impact Character Database Website using REST API</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">May 2024 - Jun 2024</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc6">Mengimplementasikan REST API ke dalam web untuk menampilkan keseluruhan data karakter game secara dinamis.</p>
+                        </a>
+                        <a href="https://github.com/ArgaNainggolan-commits" target="_blank" class="hover-card p-4 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-2 sm:col-span-2 block cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-semibold text-neutral-900 dark:text-white text-sm" data-i18n="proj_title7">Layanan Kesehatan SIBALTAR (Siantar, Balige, Dan Tarutung)</h3>
+                                <i class="fab fa-github text-neutral-400 text-sm"></i>
+                            </div>
+                            <span class="text-[10px] text-neutral-400 font-mono block">Jan 2024 - Jun 2024</span>
+                            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="proj_desc7">Merancang sistem informasi layanan kesehatan berbasis web untuk daerah Siantar, Balige, dan Tarutung secara terstruktur.</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATES PAGE -->
+                <div id="page-certificates" class="page-section space-y-6 hidden">
+                    <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3 flex justify-between items-center">
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-certificate text-neutral-400"></i> <span data-i18n="nav_certificates">Certificates & Licenses</span></h1>
+                        <button onclick="switchPage('home')" class="text-xs text-neutral-500 hover:underline cursor-pointer">&larr; Back to Home</button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <button onclick="openModal('https://drive.google.com/file/d/1IQOUBZKKWP_uEI5z5mlYZTBhxvi3Cs2l/view', 'Computer Vision - GreatNusa')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/great nusa.jpeg" alt="GreatNusa" class="w-full h-full object-contain" onerror="this.src='./assets/great nusa.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">Computer Vision</span>
+                                    <span class="text-[10px] text-neutral-400">GreatNusa</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                        <button onclick="openModal('https://drive.google.com/file/d/1MXnEVs3gbCEz8wJSDbuZ483doOJB45SI/view', 'Data Analysis Fundamental - MySkill')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/myskill.jpeg" alt="MySkill" class="w-full h-full object-contain" onerror="this.src='./assets/myskill.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">Data Analysis Fundamental</span>
+                                    <span class="text-[10px] text-neutral-400">MySkill</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                        <button onclick="openModal('https://drive.google.com/file/d/1OokDvakGdIfq3kLXHG4-nl_LPMQn9Xub/view', 'Industrial Cybersecurity - ID-Networkers')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/id networkers.jpeg" alt="ID-Networkers" class="w-full h-full object-contain" onerror="this.src='./assets/id networkers.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">Industrial Cybersecurity</span>
+                                    <span class="text-[10px] text-neutral-400">ID-Networkers (IDN.ID)</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                        <button onclick="openModal('https://drive.google.com/file/d/1TFrgV3PFWvo1FbTXQsqC_JAdjc723Hw7/view', 'HCIA-Datacom - Huawei')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/huawei.jpeg" alt="Huawei" class="w-full h-full object-contain" onerror="this.src='./assets/huawei.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">HCIA-Datacom V1.0 Course</span>
+                                    <span class="text-[10px] text-neutral-400">Huawei</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                        <button onclick="openModal('https://drive.google.com/file/d/1sme9JnCMCx0bUQLxrjFXvdO-2N-UmtSB/view', 'HCIA-Storage - Huawei')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/huawei.jpeg" alt="Huawei" class="w-full h-full object-contain" onerror="this.src='./assets/huawei.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">HCIA-Storage V5.0 Course</span>
+                                    <span class="text-[10px] text-neutral-400">Huawei</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                        <button onclick="openModal('https://drive.google.com/file/d/1zdTUkBPXSCeulAuoD165m2XdHJ4wfKz3/view', 'HTML Essentials - Cisco')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/cisco.jpeg" alt="Cisco" class="w-full h-full object-contain" onerror="this.src='./assets/cisco.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">HTML Essentials</span>
+                                    <span class="text-[10px] text-neutral-400">Cisco Networking Academy</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                        <button onclick="openModal('https://drive.google.com/file/d/1x3rYY50L3W9nLxRMu466LyLE2dEZSVbD/view', 'Telkom Intern - Infranexia')" class="hover-card btn-click p-3.5 rounded-2xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between text-left cursor-pointer sm:col-span-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 overflow-hidden p-1">
+                                    <img src="./assets/infranexia.jpeg" alt="Infranexia" class="w-full h-full object-contain" onerror="this.src='./assets/infranexia.jpg'">
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-900 dark:text-white block">PT Telkom Infrastruktur Indonesia Intern</span>
+                                    <span class="text-[10px] text-neutral-400">Infranexia (Data Management Intern)</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-eye text-neutral-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTACT PAGE -->
+                <div id="page-contact" class="page-section space-y-6 hidden">
+                    <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3 flex justify-between items-center">
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2"><i class="fas fa-paper-plane text-neutral-400"></i> <span data-i18n="nav_contact">Contact</span></h1>
+                        <button onclick="switchPage('home')" class="text-xs text-neutral-500 hover:underline cursor-pointer">&larr; Back to Home</button>
+                    </div>
+                    <div class="hover-card p-6 rounded-3xl border border-neutral-100 dark:border-neutral-900 bg-neutral-50/50 dark:bg-neutral-900/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white text-sm mb-1" data-i18n="contact_title">Let's Connect & Collaborate!</h3>
+                            <p class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="contact_subtitle">Interested in opportunities or discussing tech projects? Reach out below.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="mailto:argabonanainggolan@gmail.com" title="Email" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                <i class="fas fa-envelope text-xs"></i>
+                            </a>
+                            <a href="https://wa.me/6283861570693" target="_blank" title="WhatsApp" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                <i class="fab fa-whatsapp text-xs"></i>
+                            </a>
+                            <a href="https://t.me/Argangln" target="_blank" title="Telegram" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                <i class="fab fa-telegram text-xs"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/argabonaimmanuelnainggolan" target="_blank" title="LinkedIn" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                <i class="fab fa-linkedin text-xs"></i>
+                            </a>
+                            <a href="https://github.com/ArgaNainggolan-commits" target="_blank" title="GitHub" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                <i class="fab fa-github text-xs"></i>
+                            </a>
+                            <a href="https://www.instagram.com/arga.ngln" target="_blank" title="Instagram" class="btn-click w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition shadow-sm">
+                                <i class="fab fa-instagram text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL POPUP PREVIEW -->
+    <div id="certModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 w-11/12 max-w-2xl rounded-3xl p-6 relative shadow-2xl transform scale-95 transition-transform duration-300" id="modalContainer">
+            <button onclick="closeModal()" class="btn-click absolute top-4 right-4 text-neutral-400 hover:text-neutral-800 dark:hover:text-white text-lg w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center transition cursor-pointer">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 id="modalTitle" class="text-base font-bold text-neutral-900 dark:text-white mb-4 pr-8"></h3>
+            <div class="w-full h-80 bg-neutral-100 dark:bg-neutral-800 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700 mb-6 flex items-center justify-center">
+                <iframe id="modalIframe" src="" class="w-full h-full border-0"></iframe>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal()" class="btn-click px-4 py-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl text-xs font-medium transition cursor-pointer">Close</button>
+                <a id="modalLink" href="" target="_blank" class="btn-click px-4 py-2 bg-neutral-900 dark:bg-neutral-100 hover:opacity-90 text-white dark:text-neutral-900 rounded-xl text-xs font-medium transition flex items-center gap-2">
+                    <i class="fas fa-external-link-alt"></i> Open Full View
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Animasi, Navigasi, Dark Mode & Multi-Bahasa -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            icon.classList.add('rotate-icon');
+            setTimeout(() => icon.classList.remove('rotate-icon'), 500);
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fas fa-moon text-sm';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fas fa-sun text-sm';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun text-sm';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = 'fas fa-moon text-sm';
+            }
+
+            const savedLang = localStorage.getItem('lang') || 'en';
+            setLanguage(savedLang);
+        });
+
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'id' : 'en';
+            setLanguage(newLang);
+        }
+
+        function setLanguage(lang) {
+            localStorage.setItem('lang', lang);
+            document.getElementById('langLabel').innerText = lang === 'en' ? 'ID' : 'EN';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('hidden');
+            });
+            const target = document.getElementById('page-' + pageId);
+            target.classList.remove('hidden');
+            setTimeout(() => target.classList.add('active'), 20);
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if(btn.getAttribute('data-target') === pageId) {
+                    btn.classList.add('font-semibold', 'text-neutral-900', 'dark:text-white', 'translate-x-1');
+                } else {
+                    btn.classList.remove('font-semibold', 'text-neutral-900', 'dark:text-white', 'translate-x-1');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(url, title) {
+            const modal = document.getElementById('certModal');
+            const container = document.getElementById('modalContainer');
+            const iframe = document.getElementById('modalIframe');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalLink = document.getElementById('modalLink');
+
+            let embedUrl = url;
+            if(url.includes('drive.google.com')) {
+                embedUrl = url.replace('/view', '/preview');
+            }
+
+            modalTitle.innerText = title;
+            iframe.src = embedUrl;
+            modalLink.href = url;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certModal');
+            const container = document.getElementById('modalContainer');
+
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('modalIframe').src = '';
+            }, 300);
+        }
+
+        const translations = {
+            en: {
+                tagline: "Interested in Web Development, IoT, Cloud Infrastructure, and Data",
+                nav_home: "Home",
+                nav_education: "Education",
+                nav_experience: "Experience",
+                nav_skills: "Skills",
+                nav_projects: "Projects",
+                nav_certificates: "Certificates",
+                nav_contact: "Contact",
+                about_title: "About",
+                about_p1: "I am a fresh graduate in Computer Technology from Institut Teknologi Del with a strong foundation in designing and developing integrated computer systems, including programming, computer networks, operating systems, and hardware-software integration.",
+                about_p2: "I have a broad interest in technology, particularly Web Development with a focus on Web Development, Internet of Things (IoT), Cloud Computing, and Data. I am passionate about interactive web application development, IoT and Cloud-based system integration, and data processing to support innovative and effective technological solutions.",
+                about_p3: "I view every new experience and challenge as an opportunity to expand my understanding and develop my skills. I am open to learning things beyond my current knowledge, understanding various approaches, and adapting to ever-evolving environments and technologies.",
+                btn_view_resume: "View Resume",
+                btn_download_cv: "Download CV",
+                edu_degree: "Diploma in Computer Technology (GPA: 3.03 / 4.00)",
+                edu_modules: "Modules: Computer Architecture, IoT Applications, Network Security, Software Engineering, Cloud Computing.",
+                exp_role1: "Data Management Intern",
+                exp_desc1: "Supported data management activities at Telkom/Infranexia, including data validation, updating, and maintenance to ensure accuracy and consistency. Assisted in managing asset inventory records and organizing data using Microsoft Excel to support reporting and operational needs.",
+                exp_org2: "Computer Technology Student Association",
+                exp_role2: "Head of The Publication Division",
+                exp_desc2: "Managing all publication, documentation, and digital branding activities for the student association. Coordinate the creative team in producing informative and engaging content to enhance the organization's image, and ensure all activity information is effectively communicated.",
+                proj_title1: "IoT-Based Lake Toba Water Level Monitoring System Using LoRa Technology",
+                proj_desc1: "Designed and implemented an IoT-based real-time water level monitoring system for Lake Toba using LoRa communication.",
+                proj_title2: "Python-Based Automation in KML Spatial Design Mapping to Telkom FTTH Network Bill of Quantities (BOQ)",
+                proj_desc2: "Developed a web application (Python, Streamlit) to automate the generation of FTTH network Bill of Quantities from Google Earth Pro KML files.",
+                proj_title3: "Smart Door Lock And Access System",
+                proj_desc3: "Designed an IoT-integrated smart door lock system with RFID and fingerprint authentication for quick and secure access.",
+                proj_title4: "Internet of Things (IoT) Based Chicken Feeder System",
+                proj_desc4: "Designed an automated poultry feeding and watering system that can be controlled directly via an application.",
+                proj_title5: "Automatic Lighting System Triggered by Movement",
+                proj_desc5: "Designed an automatic lighting system based on a motion sensor (PIR Sensor) that turns on upon detecting movement.",
+                proj_title6: "Genshin Impact Character Database Website using REST API",
+                proj_desc6: "Implemented a REST API into a web platform to dynamically display comprehensive game character data.",
+                proj_title7: "SIBALTAR Healthcare Service (Siantar, Balige, and Tarutung)",
+                proj_desc7: "Designed a structured web-based healthcare service information system for the Siantar, Balige, and Tarutung regions.",
+                contact_title: "Let's Connect & Collaborate!",
+                contact_subtitle: "Interested in opportunities or discussing tech projects? Reach out below."
+            },
+            id: {
+                tagline: "Tertarik pada Web Development, IoT, Infrastruktur Cloud, dan Data",
+                nav_home: "Home",
+                nav_education: "Education",
+                nav_experience: "Experience",
+                nav_skills: "Skills",
+                nav_projects: "Projects",
+                nav_certificates: "Certificates",
+                nav_contact: "Contact",
+                about_title: "About",
+                about_p1: "Saya merupakan lulusan baru (Fresh Graduate) Teknologi Komputer dari Institut Teknologi Del. Latar belakang akademis saya telah membekali saya dengan dasar yang kuat dalam perancangan dan pengembangan sistem komputer terintegrasi, yang mencakup pemrograman, jaringan komputer, sistem operasi, serta integrasi perangkat keras dan perangkat lunak.",
+                about_p2: "Saya memiliki ketertarikan yang luas dalam bidang teknologi, khususnya Web Development dengan fokus pada Web Development, Internet of Things (IoT), Cloud Computing, dan Data. Saya tertarik pada pengembangan aplikasi web yang interaktif, integrasi sistem berbasis IoT dan Cloud, serta pengolahan data untuk mendukung terciptanya solusi teknologi yang inovatif dan efektif.",
+                about_p3: "Saya memandang setiap pengalaman dan tantangan baru sebagai kesempatan untuk memperluas pemahaman serta mengembangkan kemampuan. Saya terbuka untuk mempelajari hal-hal di luar pengetahuan yang telah dimiliki, memahami berbagai pendekatan, dan menyesuaikan diri dengan lingkungan maupun teknologi yang terus berkembang.",
+                btn_view_resume: "View Resume",
+                btn_download_cv: "Download CV",
+                edu_degree: "Diploma in Computer Technology (GPA: 3.03 / 4.00)",
+                edu_modules: "Modul: Arsitektur Komputer, Aplikasi IoT, Keamanan Jaringan, Rekayasa Perangkat Lunak, Cloud Computing.",
+                exp_role1: "Data Management Intern",
+                exp_desc1: "Mendukung kegiatan pengelolaan data di Telkom/Infranexia, meliputi validasi, pembaruan, dan pemeliharaan data untuk memastikan akurasi dan konsistensi. Membantu mengelola pencatatan inventaris aset dan pengorganisasian data menggunakan Microsoft Excel untuk mendukung kebutuhan pelaporan dan operasional.",
+                exp_org2: "Computer Technology Student Association",
+                exp_role2: "Ketua Divisi Publikasi",
+                exp_desc2: "Mengelola seluruh kegiatan publikasi, dokumentasi, dan branding digital untuk himpunan mahasiswa. Mengoordinasikan tim kreatif dalam memproduksi konten yang informatif dan menarik untuk meningkatkan citra organisasi, serta memastikan penyampaian informasi kegiatan tersampaikan secara efektif.",
+                proj_title1: "Sistem Pemantauan Tinggi Permukaan Air Danau Toba Berbasis IoT Menggunakan Teknologi LoRa",
+                proj_desc1: "Merancang dan mengimplementasikan sistem pemantauan tinggi permukaan air Danau Toba secara real-time berbasis IoT menggunakan komunikasi LoRa.",
+                proj_title2: "Penerapan Python-Based Automation dalam Pemetaan Desain Spasial KML Menjadi Bill of Quantities (BOQ) Jaringan FTTH Telkom",
+                proj_desc2: "Mengembangkan web application (Python, Streamlit) untuk otomatisasi pembuatan Bill of Quantities jaringan FTTH dari file KML Google Earth Pro.",
+                proj_title3: "Smart Door Lock And Access",
+                proj_desc3: "Merancang sistem kunci pintu otomatis terintegrasi IoT dengan autentikasi RFID dan sidik jari untuk respon cepat dan aman.",
+                proj_title4: "Sistem Pemberi Pakan Ayam Berbasis Internet of Things (IoT)",
+                proj_desc4: "Merancang sistem pemberian pakan dan air otomatis untuk unggas yang dapat dikendalikan langsung melalui aplikasi.",
+                proj_title5: "Lampu Otomatis Menyala Ketika Ada Pergerakan",
+                proj_desc5: "Merancang sistem pencahayaan otomatis berbasis sensor gerak (PIR Sensor) yang menyala saat mendeteksi pergerakan.",
+                proj_title6: "Genshin Impact Character Database Website using REST API",
+                proj_desc6: "Mengimplementasikan REST API ke dalam web untuk menampilkan keseluruhan data karakter game secara dinamis.",
+                proj_title7: "Layanan Kesehatan SIBALTAR (Siantar, Balige, Dan Tarutung)",
+                proj_desc7: "Merancang sistem informasi layanan kesehatan berbasis web untuk daerah Siantar, Balige, dan Tarutung secara terstruktur.",
+                contact_title: "Mari Terhubung & Berkolaborasi!",
+                contact_subtitle: "Tertarik pada peluang atau ingin mendiskusikan proyek teknologi? Hubungi di bawah ini."
+            }
+        };
+    </script>
+</body>
+</html>
